@@ -1,7 +1,7 @@
+using Microsoft.Maui.Animations;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Microsoft.Maui.Animations;
 
 namespace Material;
 

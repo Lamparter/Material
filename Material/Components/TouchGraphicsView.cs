@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
-using Microsoft.Maui.Animations;
+﻿using Microsoft.Maui.Animations;
 using Microsoft.Maui.Platform;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Material;
 

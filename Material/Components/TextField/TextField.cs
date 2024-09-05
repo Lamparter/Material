@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Microsoft.Maui.Animations;
+﻿using Microsoft.Maui.Animations;
+using System.ComponentModel;
 
 namespace Material;
 

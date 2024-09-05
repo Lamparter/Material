@@ -195,9 +195,9 @@ internal static class CanvasExtension
         {
             var weight = (int)element.FontWeight;
             var style = element.FontIsItalic ? FontStyleType.Italic : FontStyleType.Normal;
-    
+
             var font = new Microsoft.Maui.Graphics.Font(element.FontFamily, weight, style);
-    
+
             canvas.Font = font;
             canvas.FontColor = fontColor.WithAlpha(
                 element.ViewState is ViewState.Disabled ? 0.38f : 1f

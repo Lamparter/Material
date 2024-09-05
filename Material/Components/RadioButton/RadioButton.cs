@@ -74,7 +74,8 @@ public class RadioButton
     void IItemsElement<RadioItem>.OnItemsCollectionChanged(
         object sender,
         NotifyCollectionChangedEventArgs e
-    ) { }
+    )
+    { }
 
     void IItemsSourceElement.OnItemsSourceCollectionChanged(
         object sender,
