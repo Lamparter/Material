@@ -9,9 +9,7 @@
     <Style TargetType="views:NavigationBar">
         <Setter Property="ControlTemplate">
             <ControlTemplate>
-                <Grid
-                    x:Name="PART_Root"
-                    RowDefinitions="*,auto">
+                <Grid x:Name="PART_Root" RowDefinitions="*,auto">
                     <views:ContentPresenter
                         x:Name="PART_Content"
                         Grid.Row="0"
