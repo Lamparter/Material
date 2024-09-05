@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<PackageId>Lamparter.Material</PackageId>
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -188,16 +189,21 @@
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
+	
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
 	<PropertyGroup>
-		<Authors>yiszza</Authors>
-		<Description>Material design Components for .NET MAUI</Description>
-		<RepositoryUrl>https://github.com/mdc-maui/mdc-maui</RepositoryUrl>
+		<Authors>yiszza;Lamparter</Authors>
+		<Description>The perfect libary for using Material 3 in MAUI 🎨🖌️</Description>
+		<RepositoryUrl>https://github.com/Lamparter/Material</RepositoryUrl>
 		<PackageTags>material, components</PackageTags>
 		<AssemblyVersion></AssemblyVersion>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<FileVersion></FileVersion>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>0.2.2-preview</Version>
+		<Version>0.3.0</Version>
 	</PropertyGroup>
 
 </Project>
