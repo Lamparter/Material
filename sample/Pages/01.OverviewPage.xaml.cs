@@ -1,4 +1,4 @@
-using Material.Components.Maui;
+using Material;
 
 namespace SampleApp.Pages;
 

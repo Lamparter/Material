@@ -1,4 +1,4 @@
-﻿using Material.Components.Maui.Extensions;
+﻿using Material.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace SampleApp;

@@ -6,14 +6,14 @@
 
    
 
-2. Install nuget package    [![package](https://img.shields.io/nuget/vpre/Material.Components.Maui?style=for-the-badge)](https://www.nuget.org/packages/Material.Components.Maui) 
+2. Install nuget package    [![package](https://img.shields.io/nuget/vpre/Material?style=for-the-badge)](https://www.nuget.org/packages/Material) 
 
    
 
 3. Add `UseMaterialComponents` in `MauiProgram.cs`
 
    ```c#
-   using Material.Components.Maui.Extensions;
+   using Material.Extensions;
    
    ...
    
@@ -42,7 +42,7 @@
                 
       ...
                 
-       xmlns:mds="clr-namespace:Material.Components.Maui.Styles;assembly=Material.Components.Maui">
+       xmlns:mds="clr-namespace:Material.Styles;assembly=Material">
        <Application.Resources>
            <ResourceDictionary>
                <ResourceDictionary.MergedDictionaries>
@@ -70,7 +70,7 @@
        
        ...
                 
-       xmlns:md="clr-namespace:Material.Components.Maui;assembly=Material.Components.Maui">
+       xmlns:md="clr-namespace:Material;assembly=Material">
        
        <md:Button Text="button" IconKind="Add" />
        

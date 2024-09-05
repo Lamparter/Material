@@ -14,7 +14,7 @@ Popups Displaying a modal  pop-up on the window.
     x:Class="Sample.Dialog"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:md="clr-namespace:Material.Components.Maui;assembly=Material.Components.Maui">
+    xmlns:md="clr-namespace:Material;assembly=Material">
 
     <md:Card
         BackgroundColor="{DynamicResource SurfaceColor}"

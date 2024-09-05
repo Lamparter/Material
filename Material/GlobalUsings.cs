@@ -1,0 +1,11 @@
+global using Material.Converters;
+global using Material.Extensions;
+global using Material.Extensions.Platform;
+global using Material.Interfaces;
+global using Material.Platform;
+global using Material.Primitives;
+global using Material.Styles;
+global using Material.Tokens;
+global using IElement = Material.Interfaces.IElement;
+global using ViewState = Material.Primitives.ViewState;
+global using MaterialColors = Material.Tokens.MaterialColors;

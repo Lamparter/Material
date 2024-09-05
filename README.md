@@ -1,6 +1,6 @@
 
-# Material.Components.Maui
-[![nuget](https://img.shields.io/nuget/vpre/Material.Components.Maui?style=for-the-badge)](https://www.nuget.org/packages/Material.Components.Maui) 
+# Material
+[![nuget](https://img.shields.io/nuget/vpre/Material?style=for-the-badge)](https://www.nuget.org/packages/Material) 
 
 ![](docs/assets/preview.png)
 

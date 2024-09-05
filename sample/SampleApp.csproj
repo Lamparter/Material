@@ -21,10 +21,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>SampleApp</ApplicationTitle>
+		<ApplicationTitle>Sample</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.sampleapp</ApplicationId>
+		<ApplicationId>com.example.sampleapp</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -65,7 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\src\Material.Components.Maui\Material.Components.Maui.csproj" />
+	  <ProjectReference Include="..\Material\Material.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
