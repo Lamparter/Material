@@ -319,7 +319,7 @@ public class ComboBox
         return 0f;
     }
 
-    protected override void StartRippleEffect()
+    protected override void StartRippleEffect(Ripple ripple)
     {
         return;
     }

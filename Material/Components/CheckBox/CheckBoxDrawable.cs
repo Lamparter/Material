@@ -30,15 +30,14 @@ internal class CheckBoxDrawable(CheckBox view) : IDrawable
         drawRect.AppendCircle(rect.Center.X, rect.Center.Y, Math.Max(rect.Width, rect.Height) / 2f);
         canvas.ClipPath(drawRect);
 
-        if (view.RipplePercent is 0f or 1f)
-            canvas.DrawStateLayer(view, rect, view.ViewState);
-        else
+        for (var rippleIndex = 0; rippleIndex < view.Ripples.Count; rippleIndex++)
+        {
             canvas.DrawRipple(
                 view,
                 view.LastTouchPoint,
-                view.RippleSize,
-                view.RipplePercent
+                view.Ripples[rippleIndex]
             );
+        }
 
         canvas.RestoreState();
     }

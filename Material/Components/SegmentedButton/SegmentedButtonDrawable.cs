@@ -1,4 +1,6 @@
-﻿namespace Material;
+﻿using Material.Extensions;
+
+namespace Material;
 
 internal class SegmentedButtonDrawable(SegmentedButton view) : IDrawable, IDisposable
 {
@@ -53,19 +55,24 @@ internal class SegmentedButtonDrawable(SegmentedButton view) : IDrawable, IDispo
         this.ClipItemRect(canvas, rect, item);
         canvas.DrawBackground(item, rect);
 
-        if (
-            rect.Contains(view.LastTouchPoint)
-            && item.ViewState is ViewState.Hovered or ViewState.Pressed
-            && view.RipplePercent is not 0f or 1f
-        )
+        foreach (var ripple in view.Ripples)
             canvas.DrawRipple(
                 view,
                 view.LastTouchPoint,
-                view.RippleSize / 3,
-                view.RipplePercent
+                ripple.Size /3,
+                ripple.Percent,
+                ripple.Alpha
             );
-        else
-            canvas.DrawStateLayer(item, rect, item.ViewState);
+        for (var rippleIndex = 0; rippleIndex < view.Ripples.Count; rippleIndex++)
+        {
+            canvas.DrawRipple(
+                view,
+                view.LastTouchPoint,
+                view.Ripples[rippleIndex].Size/3,
+                view.Ripples[rippleIndex].Percent,
+                view.Ripples[rippleIndex].Alpha
+            );
+        }
 
         var scale = rect.Height / 40f;
         var textSize = view.GetStringSize(item.Text);

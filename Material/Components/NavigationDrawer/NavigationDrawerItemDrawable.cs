@@ -13,15 +13,14 @@ internal class NavigationDrawerItemDrawable(NavigationDrawerItem view) : IDrawab
 
         canvas.DrawBackground(this.view, rect);
 
-        if (this.view.RipplePercent is 0f or 1f)
-            canvas.DrawStateLayer(this.view, rect, this.view.ViewState);
-        else
+        for (var rippleIndex = 0; rippleIndex < view.Ripples.Count; rippleIndex++)
+        {
             canvas.DrawRipple(
-                this.view,
-                this.view.LastTouchPoint,
-                this.view.RippleSize,
-                this.view.RipplePercent
+                view,
+                view.LastTouchPoint,
+                view.Ripples[rippleIndex]
             );
+        }
 
         canvas.DrawIcon(
            this.view,

@@ -7,17 +7,15 @@ internal class MenuItemDrawable(MenuItem view) : IDrawable
         canvas.SaveState();
         canvas.Antialias = true;
         canvas.ClipRectangle(rect);
-
-        if (view.RipplePercent is 0f or 1f)
-            canvas.DrawStateLayer(view, rect, view.ViewState);
-        else
+        
+        for (var rippleIndex = 0; rippleIndex < view.Ripples.Count; rippleIndex++)
+        {
             canvas.DrawRipple(
                 view,
                 view.LastTouchPoint,
-                view.RippleSize,
-                view.RipplePercent
+                view.Ripples[rippleIndex]
             );
-
+        }
         canvas.DrawIcon(view, new RectF(12f, 12f, 24f, 24f), 24, 1f);
 
         var iconSize = !string.IsNullOrEmpty(view.IconData) ? 24f : 0f;

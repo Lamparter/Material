@@ -140,11 +140,27 @@ internal static class CanvasExtension
         IRippleElement element,
         PointF point,
         float size,
-        float percent
+        float percent,
+        float alpha = 1f
     )
     {
-        canvas.FillColor = element.StateLayerColor.WithAlpha(StateLayerOpacity.Pressed);
+        if (percent <= 0f || alpha <= 0f)
+            return;
+        canvas.FillColor = element.StateLayerColor.WithAlpha(StateLayerOpacity.Pressed).MultiplyAlpha(alpha);
         canvas.FillCircle(point, 0f.Lerp(size, percent));
+    }
+
+    internal static void DrawRipple(
+        this ICanvas canvas,
+        IRippleElement element,
+        PointF point,
+        Ripple ripple
+    )
+    {
+        if (ripple.Percent <= 0f || ripple.Alpha <= 0f)
+            return;
+        canvas.FillColor = element.StateLayerColor.WithAlpha(StateLayerOpacity.Pressed).MultiplyAlpha(ripple.Alpha);
+        canvas.FillCircle(point, 0f.Lerp(ripple.Size, ripple.Percent));
     }
 
     internal static void DrawText<TElement>(
