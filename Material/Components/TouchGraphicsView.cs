@@ -112,6 +112,8 @@ public class TouchGraphicsView
         set => this.SetValue(RippleEasingProperty, value);
     }
 
+    public readonly int MaxRippleLayers = 8;
+
     public ContextMenu ContextMenu
     {
         get => (ContextMenu)this.GetValue(ContextMenuProperty);
@@ -130,8 +132,7 @@ public class TouchGraphicsView
         set => this.SetValue(CommandParameterProperty, value);
     }
 
-    internal float RippleSize { get; set; }
-    internal float RipplePercent { get; set; }
+    internal StackLayers<Ripple> Ripples { get; set; }
     internal PointF LastTouchPoint { get; set; }
 
     protected IAnimationManager animationManager;
@@ -171,6 +172,8 @@ public class TouchGraphicsView
         this.GestureRecognizers.Add(tapGestureRecognizer);
 #endif
 
+        this.Ripples = new(MaxRippleLayers);
+
         this.touchTimer = this.Dispatcher.CreateTimer();
         this.touchTimer.Interval = TimeSpan.FromMilliseconds(500);
         this.touchTimer.IsRepeating = false;
@@ -195,10 +198,16 @@ public class TouchGraphicsView
         if (!this.IsEnabled)
             return;
 
+        var ripple = new Ripple()
+        {
+            Size = this.GetRippleSize(),
+            Alpha = 1f
+        };
+
         this.ViewState = ViewState.Pressed;
         this.LastTouchPoint = e.Touches[0];
-        this.RippleSize = this.GetRippleSize();
-        this.StartRippleEffect();
+        this.Ripples.Push(ripple, (ripplePop) => { this.EndRippleEffect(ripplePop); return false; });
+        this.StartRippleEffect(ripple);
 
         this.Pressed?.Invoke(this, e);
 
@@ -216,6 +225,8 @@ public class TouchGraphicsView
 #else
         this.ViewState = e.IsInsideBounds ? ViewState.Hovered : ViewState.Normal;
 #endif
+
+        this.EndRippleEffects();
 
         this.Released?.Invoke(this, e);
         if (
@@ -263,7 +274,7 @@ public class TouchGraphicsView
             this.ViewState = ViewState.Normal;
     }
 
-    protected virtual void StartRippleEffect()
+    protected virtual void StartRippleEffect(Ripple ripple)
     {
         this.animationManager ??= this.Handler
             .MauiContext
@@ -274,13 +285,50 @@ public class TouchGraphicsView
             new Microsoft.Maui.Animations.Animation(
                 callback: (progress) =>
                 {
-                    this.RipplePercent = 0f.Lerp(1f, progress);
+                    ripple.Alpha = .3f.Lerp(1f, progress);
+                    ripple.Percent = 0f.Lerp(1f, progress);
                     this.Invalidate();
                 },
+                finished: () => ripple.RippleFinished.TrySetResult(),
                 duration: this.RippleDuration,
                 easing: this.RippleEasing
             )
         );
+    }
+
+    protected virtual async void EndRippleEffect(Ripple ripple, bool skip = false)
+    {
+        if (!skip)
+        {
+            try { await ripple.RippleFinished.Task; }
+            catch (TaskCanceledException) { return; }
+        }
+
+        if (ripple.RippleFinished.Task.Status is TaskStatus.RanToCompletion)
+        {
+            this.animationManager?.Add(
+                new Microsoft.Maui.Animations.Animation(
+                    callback: (progress) =>
+                    {
+                        ripple.Alpha = 1f.Lerp(0f, progress);
+                        this.Invalidate();
+                    },
+                    finished: () => this.Ripples.Pop(ripple),
+                    duration: this.RippleDuration,
+                    easing: this.RippleEasing
+                )
+            );
+        }
+    }
+
+    protected virtual void EndRippleEffects()
+    {
+        for (var rippleIndex = 0; rippleIndex < this.Ripples.Count; rippleIndex++)
+        {
+            var ripple = this.Ripples[rippleIndex];
+
+            this.EndRippleEffect(ripple);
+        }
     }
 
     void IContextMenuElement.OnContextMenuChanged(object oldValue, object newValue)

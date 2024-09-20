@@ -437,7 +437,7 @@ public class TextField
         return maxSize;
     }
 
-    protected override void StartRippleEffect()
+    protected override void StartRippleEffect(Ripple ripple)
     {
         var x = this.LastTouchPoint.X + this.Bounds.Left;
         var y = this.LastTouchPoint.Y + this.Bounds.Top;
@@ -458,7 +458,7 @@ public class TextField
                 new Microsoft.Maui.Animations.Animation(
                     callback: (progress) =>
                     {
-                        this.RipplePercent = 0f.Lerp(1f, progress);
+                        ripple.Percent = 0f.Lerp(1f, progress);
                         this.Invalidate();
                     },
                     duration: this.RippleDuration,

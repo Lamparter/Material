@@ -15,15 +15,14 @@ class IconButtonDrawable(IconButton view) : IDrawable
         canvas.DrawIcon(view, rect, 24, scale);
         canvas.DrawOverlayLayer(view, rect);
 
-        if (view.RipplePercent is 0f or 1f)
-            canvas.DrawStateLayer(view, rect, view.ViewState);
-        else
+        for (var rippleIndex = 0; rippleIndex < view.Ripples.Count; rippleIndex++)
+        {
             canvas.DrawRipple(
                 view,
                 view.LastTouchPoint,
-                view.RippleSize,
-                view.RipplePercent
+                view.Ripples[rippleIndex]
             );
+        }
 
         canvas.ResetState();
     }

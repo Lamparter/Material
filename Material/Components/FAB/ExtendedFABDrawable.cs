@@ -11,15 +11,14 @@ internal class ExtendedFABDrawable(ExtendedFAB view) : IDrawable
         canvas.DrawBackground(view, rect);
         canvas.DrawOverlayLayer(view, rect);
 
-        if (view.RipplePercent is 0f or 1f)
-            canvas.DrawStateLayer(view, rect, view.ViewState);
-        else
+        for (var rippleIndex = 0; rippleIndex < view.Ripples.Count; rippleIndex++)
+        {
             canvas.DrawRipple(
                 view,
                 view.LastTouchPoint,
-                view.RippleSize,
-                view.RipplePercent
+                view.Ripples[rippleIndex]
             );
+        }
 
         var scale = rect.Height / 56f;
         canvas.DrawIcon(
